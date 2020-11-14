@@ -1,10 +1,8 @@
 
 
-// var description = $(".description").val();
+// variables
 
-// var time = $(".row").attr("value").valueOf();
-
-var events = [];
+var eventsArray = [];
 
 var todayDay = moment().format("dddd, MMMM Do");
 
@@ -13,19 +11,28 @@ var descriptions = $(".description")
 console.log(moment().format("H"));
 
 
+// functions
 
+    // function to run on page load
 
 $(document).ready(function() {
 
-    events = JSON.parse(localStorage.getItem("scheduledEvents") || "[]");
+    // set var events array equal to the local storage array
 
-    for (i=0; i<events.length; i++) {
-        var timeValue = events[i].time;
-        console.log(timeValue);
-        $("form[value=" + timeValue + "]").find("textarea").val(events[i].event);
+    eventsArray = JSON.parse(localStorage.getItem("scheduledEvents") || "[]");
+
+    // loop through var events array and display events in timeblocks that should have them
+
+    for (i=0; i<eventsArray.length; i++) {
+        var timeValue = eventsArray[i].time;
+        $("form[value=" + timeValue + "]").find("textarea").val(eventsArray[i].event);
     }
 
+    // set the heading to today's date
+
     $("#currentDay").text(todayDay);
+
+    // give the hour function an interval so that it will continue to update colors even without page load
 
     setInterval(isBeforeAfter(),10000);
     
@@ -34,9 +41,14 @@ $(document).ready(function() {
 
 function isBeforeAfter() {
 
+    // get current hour from moment.js
+
     var todayHour = moment().format("H");
 
     todayHour = parseInt(todayHour);
+
+    // loop through all textareas and set their background color according to whether their parent value falls 
+        // less than, equal to, or greater than the current hour as told by moment.js
 
     for (i=0; i<descriptions.length; i++) {    
 
@@ -59,45 +71,70 @@ function isBeforeAfter() {
     }
 }
 
-// localStorage.removeItem("scheduledEvents");
 
+
+// on click event for all buttons with class .saveBtn
 
 $(".saveBtn").click(function(event) {
 
     event.preventDefault();
 
-    console.log(this);
+    // for the save button clicked, find the textarea in the same form and pull the value, get the 
+        //value attribute from the parent div
 
-    console.log($(this).parent());
+    var description = $(this).parent().find("textarea").val();
+    var time = $(this).parent().attr("value");
+    time = parseInt(time);
     
-    if ($(this).parent().find("textarea").val() != "") {
 
-        // if (localStorage.getItem("event.") === null) {
+    // if the user entered text before they clicked save, run this function
 
-        // }
+    if ($(this).parent().find("textarea").val() !== "") {
 
-        // else {
+        // loop through the array to find out if an event in that time block already exists
+            // if it does, replace the event description with the new one, and break out of this function
 
-            var description = $(this).parent().find("textarea").val();
-            var time = $(this).parent().attr("value");
+        for (i=0; i<eventsArray.length; i++) {
 
-            console.log(time);
-            console.log(description);
+            if (eventsArray[i].time == time) {
+                eventsArray[i].event = description;
+                localStorage.setItem("scheduledEvents", JSON.stringify(eventsArray));
+                return;
+            }
+        
+        }
+
+        // if no event exists in the array with that current time block, add a new array object
 
             var scheduleEntry = {
                 event: description, 
                 time: time
             }
 
-            console.log(scheduleEntry);
+            eventsArray.push(scheduleEntry);
 
-            events.push(scheduleEntry);
+            localStorage.setItem("scheduledEvents", JSON.stringify(eventsArray));
 
-            localStorage.setItem("scheduledEvents", JSON.stringify(events));
+    
+    }
 
-        // }
+    // if the user clicked save after entering no text or deleting previously existing text
 
+    else {
+
+        // loop through the array to find out if an event in that time block already exists
+            // if it does, and there was no text entered by the user, delete the event from the array.
+
+        for (i=0; i<eventsArray.length; i++) {
+
+            if (eventsArray[i].time == time) {
+                var removed = eventsArray.splice(i, 1);
+                localStorage.setItem("scheduledEvents", JSON.stringify(eventsArray));
+                return;
+            }
         
+        }
+
     
     }
 
