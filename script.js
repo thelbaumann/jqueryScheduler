@@ -34,11 +34,9 @@ $(document).ready(function() {
 
 function isBeforeAfter() {
 
-    // var todayHour = moment().format("H");
+    var todayHour = moment().format("H");
 
-    var todayHour = 11;
-
-    console.log("this is the hour = " + todayHour);
+    todayHour = parseInt(todayHour);
 
     for (i=0; i<descriptions.length; i++) {    
 
