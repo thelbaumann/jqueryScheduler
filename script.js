@@ -43,9 +43,11 @@ function isBeforeAfter() {
 
     // get current hour from moment.js
 
-    var todayHour = moment().format("H");
+    // var todayHour = moment().format("H");
 
-    todayHour = parseInt(todayHour);
+    // todayHour = parseInt(todayHour);
+
+    var todayHour = 11;
 
     // loop through all textareas and set their background color according to whether their parent value falls 
         // less than, equal to, or greater than the current hour as told by moment.js
