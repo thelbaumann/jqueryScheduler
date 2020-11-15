@@ -1,6 +1,6 @@
 # jQuery Work Schedule
 
-This is a micro application built to function as a daily planner for its user. Utilizing basic HTML and CSS for styling and static build, the functionality of this application is all powered by jQuery. I was given the basic html/css templatation of this project and required to write the jQuery, as well as pull in moment.js in order to bring this project to life. This project is currently deployed and can be viewed at [https://thelbaumann.github.io/jqueryScheduler/](https://thelbaumann.github.io/jqueryScheduler/).
+This is a micro application is built to function as a daily planner for its user. Utilizing basic HTML and CSS for styling and static build, the functionality of this application is all powered by jQuery. I was given the basic html/css templatation of this project and required to write the jQuery, as well as pull in moment.js in order to bring this project to life. This project is currently deployed and can be viewed at [https://thelbaumann.github.io/jqueryScheduler/](https://thelbaumann.github.io/jqueryScheduler/).
 
 
 ## About The Project
