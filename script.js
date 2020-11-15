@@ -8,8 +8,6 @@ var todayDay = moment().format("dddd, MMMM Do");
 
 var descriptions = $(".description")
 
-console.log(moment().format("H"));
-
 
 // functions
 
@@ -43,11 +41,10 @@ function isBeforeAfter() {
 
     // get current hour from moment.js
 
-    // var todayHour = moment().format("H");
+    var todayHour = moment().format("H");
 
-    // todayHour = parseInt(todayHour);
+    todayHour = parseInt(todayHour);
 
-    var todayHour = 11;
 
     // loop through all textareas and set their background color according to whether their parent value falls 
         // less than, equal to, or greater than the current hour as told by moment.js
@@ -55,8 +52,6 @@ function isBeforeAfter() {
     for (i=0; i<descriptions.length; i++) {    
 
         var currentDescription = $(descriptions[i]).parent().attr("value");
-
-        console.log(currentDescription);
 
         if (currentDescription < todayHour) {
             $(descriptions[i]).css("background-color", "rgb(220,220,220)");
